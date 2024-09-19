@@ -30,9 +30,14 @@ github 找到的华中科技大学的同学分享的 c 语言实验报告
 
 [C 语言教程 - 网道 (wangdoc.com)](https://wangdoc.com/clang/intro)
 
+#### vscode 调试 c/c++
+找到一个比较好的视频教程还有文档
+[文档](https://www.bilibili.com/read/cv21829349/)
+[视频](https://www.bilibili.com/video/BV1Aj411N7Ne/?spm_id_from=333.976.0.0)
 
 
-code 部分实现了大部分实验报告内容 以及 课程lab，仅供参考
+
+> code 部分实现了大部分实验报告内容 以及 课程lab，仅供参考
 
 
 
