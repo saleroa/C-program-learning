@@ -69,7 +69,7 @@ void welcome()
 void inputStudent(Node* head){
     // 从头节点移动到 tail 节点
     Node * move = head;
-    while (move->next){
+    while (move->next != NULL){
         move = move->next;
     }
     // 创建节点
@@ -91,7 +91,7 @@ void inputStudent(Node* head){
 // 打印学生信息
 void printstudent(Node* head){
     Node* move = head -> next;
-    while(move){
+    while(move != NULL){
         printf("%d %s %d",move->stu.number,move->stu.name,move->stu.score);
         move = move ->next;
     }
@@ -105,7 +105,7 @@ void printstudent(Node* head){
 void countstudent(Node* head){
     int count = 0;
     Node * move = head->next;
-    while(move){
+    while(move != NULL){
         count++;
         move = move->next;
     }
@@ -121,7 +121,7 @@ void findstudent(Node* head){
     printf("please input stuid:\n");
     scanf("%d",stuNum);
     Node* move = head -> next;
-    while(move){
+    while(move != NULL){
         if (move->stu.number == stuNum){
             printf("%d %s %d",move->stu.number,move->stu.name,move->stu.score);
             system("pause");
@@ -133,4 +133,46 @@ void findstudent(Node* head){
     printf("do not found such stu\n");
     system("pause");
     system("cls");
+}
+
+// 学生信息持久化
+void savestudent(Node* head){
+    FILE * file = fopen("a","w");
+    // 打开文件的错误处理
+    if (file == NULL){
+        printf("failed to open file\n");
+        return;
+    }
+    Node* move = head->next;
+    while(move != NULL){
+        // 将学生信息存入文件
+        if (fwrite(&move->stu,sizeof(Student),1,file) != 1){
+            printf("failed to write\n");
+        }
+        move = move ->next;
+    }
+    fclose(file);
+}
+
+// 从文件中加载学生信息
+void loadstudent(Node* head){
+    //打开文件
+    FILE* file = fopen("a","r");
+    if(file == NULL){
+        printf("failed to open file\n");
+        return;
+    }
+    // 创建一个节点
+    Node* fresh = (Node*)malloc(sizeof(Node));
+    fresh -> next  = NULL;
+    Node* move = head;
+    while(fread(&fresh->stu,sizeof(Student),1,file) == 1){
+        move -> next = fresh;
+        move = fresh;
+        fresh = (Node*)malloc(sizeof(Node));
+        fresh -> next = NULL;
+    }
+    free(fresh);
+    fclose(file);
+    printf("读取成功\n");
 }
